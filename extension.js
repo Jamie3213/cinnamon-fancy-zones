@@ -43,6 +43,15 @@ function snapWindowToZone(slotNumber) {
 
     global.log(LOG_PREFIX + 'snapping window to zone ' + slotNumber + ' at ' +
         zoneRect.x + ',' + zoneRect.y + ' (' + zoneRect.width + 'x' + zoneRect.height + ').');
+
+    if (typeof window.unmake_fullscreen === 'function') {
+        window.unmake_fullscreen();
+    }
+
+    if (typeof window.get_maximized === 'function' && window.get_maximized()) {
+        window.unmaximize(Meta.MaximizeFlags.BOTH);
+    }
+
     window.move_resize_frame(true, zoneRect.x, zoneRect.y, zoneRect.width, zoneRect.height);
 }
 

@@ -46,33 +46,7 @@ If you prefer to do it manually:
 4. Open the Cinnamon extensions settings UI and enable "Cinnamon Fancy Zones".
 5. Use Ctrl + Alt + Super + 1, 2, or 3 to snap the active window to its fixed zone.
 
-### Troubleshooting
-
-Cinnamon Fancy Zones writes diagnostic messages when it is enabled, when shortcuts
-are registered or pressed, and when snapping fails.
-
-- Open Cinnamon's Looking Glass with **Alt + F2**, enter `lg`, then press Enter.
-  Check its **Errors** tab for extension load or runtime errors.
-- In a terminal, follow the extension's session log messages with:
-
-  ```bash
-  tail -F ~/.xsession-errors | grep --line-buffered -i 'Cinnamon Fancy Zones'
-  ```
-
-  If `~/.xsession-errors` does not exist on your system, check the Looking Glass
-  **Errors** tab instead.
-- If Cinnamon or the graphical session crashed and you had to reboot, check the
-  previous boot's system journal for relevant errors:
-
-  ```bash
-  journalctl -b -1 --no-pager | grep -Ei 'cinnamon|muffin|segfault|gjs'
-  ```
-
-  `-b -1` selects the previous boot. The journal may not contain previous-boot
-  logs if persistent journal storage is not enabled.
-- Confirm the extension is enabled in Cinnamon Settings → Extensions and check
-  that each shortcut was registered. If a shortcut is missing or conflicts with
-  another application, change it in Cinnamon's Keyboard → Shortcuts settings.
+Snapping restores a maximized or full-screen window before moving and resizing it.
 
 ### To develop the project
 
