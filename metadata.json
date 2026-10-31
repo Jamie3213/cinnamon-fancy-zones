@@ -3,7 +3,7 @@
   "description": "Simple, keyboard-driven centered window zones for Cinnamon",
   "uuid": "cinnamon-fancy-zones@jamie3213",
   "version": "1.0.0",
-  "shell-version": [
+  "cinnamon-version": [
     "3.8",
     "3.10",
     "4.0",

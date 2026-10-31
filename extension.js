@@ -2,13 +2,13 @@ const Gio = imports.gi.Gio;
 const Cinnamon = imports.gi.Cinnamon;
 const Meta = imports.gi.Meta;
 const Main = imports.ui.main;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-const ZoneUtils = Me.imports.zoneUtils;
 
+const EXTENSION_UUID = 'cinnamon-fancy-zones@jamie3213';
 const SETTINGS_SCHEMA_ID = 'org.cinnamon.extensions.cinnamon-fancy-zones';
 const BINDING_NAMES = ['snap-zone-1', 'snap-zone-2', 'snap-zone-3'];
+const ZoneUtils = imports.extensions[EXTENSION_UUID].zoneUtils;
 const LOG_PREFIX = 'Cinnamon Fancy Zones: ';
+let _extension = null;
 
 function getMonitorGeometryForWindow(window) {
     const monitorIndex = typeof window.get_monitor === 'function' ? window.get_monitor() : global.screen.get_current_monitor();
@@ -47,7 +47,22 @@ function snapWindowToZone(slotNumber) {
 }
 
 function init() {
-    return new FancyZones();
+    _extension = new FancyZones();
+}
+
+function enable() {
+    if (!_extension) {
+        _extension = new FancyZones();
+    }
+
+    _extension.enable();
+}
+
+function disable() {
+    if (_extension) {
+        _extension.disable();
+        _extension = null;
+    }
 }
 
 const FancyZones = class {
