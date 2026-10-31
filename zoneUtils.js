@@ -14,6 +14,17 @@ function getZoneDimensions(slotNumber) {
     return { width: dimensions.width, height: dimensions.height };
 }
 
+function getCenteredPosition(monitor, width, height) {
+    if (!monitor || monitor.width <= 0 || monitor.height <= 0 || width <= 0 || height <= 0) {
+        throw new RangeError('Monitor and window dimensions must be positive');
+    }
+
+    return {
+        x: Math.round(monitor.x + (monitor.width - width) / 2),
+        y: Math.round(monitor.y + (monitor.height - height) / 2)
+    };
+}
+
 function getCenteredZone(monitor, slotNumber) {
     const dimensions = getZoneDimensions(slotNumber);
 
@@ -23,10 +34,11 @@ function getCenteredZone(monitor, slotNumber) {
 
     const width = Math.min(dimensions.width, monitor.width);
     const height = Math.min(dimensions.height, monitor.height);
+    const position = getCenteredPosition(monitor, width, height);
 
     return {
-        x: Math.round(monitor.x + (monitor.width - width) / 2),
-        y: Math.round(monitor.y + (monitor.height - height) / 2),
+        x: position.x,
+        y: position.y,
         width: width,
         height: height
     };
