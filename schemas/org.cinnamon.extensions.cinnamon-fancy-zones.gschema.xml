@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.cinnamon.extensions.cinnamon-fancy-zones" path="/org/cinnamon/extensions/cinnamon-fancy-zones/">
+    <key type="as" name="snap-zone-1">
+      <default>['&lt;Primary&gt;&lt;Alt&gt;&lt;Super&gt;1']</default>
+      <summary>Snap zone 1 shortcut</summary>
+    </key>
+    <key type="as" name="snap-zone-2">
+      <default>['&lt;Primary&gt;&lt;Alt&gt;&lt;Super&gt;2']</default>
+      <summary>Snap zone 2 shortcut</summary>
+    </key>
+    <key type="as" name="snap-zone-3">
+      <default>['&lt;Primary&gt;&lt;Alt&gt;&lt;Super&gt;3']</default>
+      <summary>Snap zone 3 shortcut</summary>
+    </key>
+  </schema>
+</schemalist>

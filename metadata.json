@@ -1,0 +1,29 @@
+{
+  "name": "Cinnamon Fancy Zones",
+  "description": "Simple, keyboard-driven centered window zones for Cinnamon",
+  "uuid": "cinnamon-fancy-zones@jamie3213",
+  "version": "1.0.0",
+  "cinnamon-version": [
+    "3.8",
+    "3.10",
+    "4.0",
+    "4.2",
+    "4.4",
+    "4.6",
+    "4.8",
+    "5.0",
+    "5.2",
+    "5.4",
+    "5.6",
+    "5.8",
+    "5.10",
+    "5.12",
+    "5.14",
+    "5.16",
+    "5.18",
+    "5.20",
+    "5.22",
+    "6.0"
+  ],
+  "settings-schema": "org.cinnamon.extensions.cinnamon-fancy-zones"
+}
