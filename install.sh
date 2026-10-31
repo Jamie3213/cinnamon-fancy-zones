@@ -6,12 +6,14 @@ EXTENSION_UUID="cinnamon-fancy-zones@jamie3213"
 EXTENSION_DIR="$HOME/.local/share/cinnamon/extensions/$EXTENSION_UUID"
 SCHEMA_DIR="$HOME/.local/share/glib-2.0/schemas"
 
-mkdir -p "$EXTENSION_DIR" "$SCHEMA_DIR"
+mkdir -p "$(dirname "$EXTENSION_DIR")" "$SCHEMA_DIR"
+
+# Replace the installed extension so files removed from the checkout do not linger.
+rm -rf "$EXTENSION_DIR"
+mkdir -p "$EXTENSION_DIR"
 
 # Copy the extension files into Cinnamon's per-user extensions directory.
 cp -a "$SCRIPT_DIR"/. "$EXTENSION_DIR/"
-# Remove the obsolete size-preferences file when upgrading older installs.
-rm -f "$EXTENSION_DIR/settings-schema.json"
 
 # Install the GSettings schema for the extension.
 for schema in "$EXTENSION_DIR/schemas"/*.gschema.xml; do
