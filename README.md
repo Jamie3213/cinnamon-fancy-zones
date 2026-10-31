@@ -33,9 +33,18 @@ This copies the extension into `~/.local/share/cinnamon/extensions/cinnamon-fanc
 If you prefer to do it manually:
 
 1. Copy this repository directory to `~/.local/share/cinnamon/extensions/cinnamon-fancy-zones@jamie3213/` or the corresponding Cinnamon extension path for your system.
-2. Restart Cinnamon or log out and back in.
-3. Open the Cinnamon extensions settings UI and enable "Cinnamon Fancy Zones".
-4. Use Ctrl + Alt + Super + 1, 2, or 3 to snap the active window to its fixed zone.
+2. Install and compile the extension's GSettings schema:
+
+   ```bash
+   mkdir -p ~/.local/share/glib-2.0/schemas
+   cp ~/.local/share/cinnamon/extensions/cinnamon-fancy-zones@jamie3213/schemas/org.cinnamon.extensions.cinnamon-fancy-zones.gschema.xml ~/.local/share/glib-2.0/schemas/
+   glib-compile-schemas ~/.local/share/glib-2.0/schemas
+   ```
+
+   If you copied the extension to a different path, use that path as the source for `cp`.
+3. Restart Cinnamon or log out and back in.
+4. Open the Cinnamon extensions settings UI and enable "Cinnamon Fancy Zones".
+5. Use Ctrl + Alt + Super + 1, 2, or 3 to snap the active window to its fixed zone.
 
 ### To develop the project
 
