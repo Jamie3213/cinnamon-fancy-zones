@@ -2,18 +2,23 @@
 
 ## Purpose
 
-Provide a simple, keyboard-driven way to define zones and snap windows into them on Cinnamon desktops.
+Provide a simple, keyboard-driven way to place windows into a small set of centered zones on Cinnamon desktops.
 
-## Core Features
+## Functional Requirements
 
-- **F001 — Single configuration:** WHEN a user configures zones, THEN the extension SHALL provide one zone configuration that can contain multiple zones, without requiring users to manage or switch between profiles.
-- **F002 — Overlapping zones:** WHEN a user defines zones, THEN the extension SHALL allow zones to overlap.
-- **F003 — Edit zones by shortcut:** WHEN a user invokes the zone-editing keyboard shortcut, THEN the extension SHALL allow the user to define or edit zones.
-- **F004 — Snap window by shortcut:** WHEN a user invokes the snapping keyboard shortcut, THEN the extension SHALL snap the active window to a selected zone.
-- **F005 — Centered zone:** WHEN a user configures a zone as centered, THEN the extension SHALL center that zone on its monitor.
-- **F006 — Pixel dimensions:** WHEN a user configures a zone's size, THEN the extension SHALL allow its width and height to be specified explicitly in pixels, for example, 1920 × 1080.
+- **F001 — Single configuration:** WHEN a user configures zones, THEN the extension SHALL store and use one persistent configuration, without profile switching.
+- **F002 — Three zone slots:** WHEN the user configures the extension, THEN the extension SHALL provide three zone slots, numbered 1, 2, and 3.
+- **F003 — Simple zone configuration:** WHEN a user configures a zone slot, THEN the extension SHALL let the user choose a centered zone size from a predefined set of pixel dimensions, without requiring a graphical zone-drawing editor.
+- **F004 — Overlapping zones:** WHEN configured zones overlap, THEN the extension SHALL allow the overlap.
+- **F005 — Keyboard snapping:** WHEN the user presses Ctrl + Alt + Super + 1, 2, or 3, THEN the extension SHALL snap the active window to the corresponding configured zone.
+- **F006 — Active monitor:** WHEN a window is snapped, THEN the extension SHALL place its zone on the monitor containing the active window.
+- **F007 — Centered placement:** WHEN a zone is placed on a monitor, THEN the extension SHALL center it on that monitor.
+- **F008 — Resolution bounds:** WHEN a configured zone is larger than its monitor, THEN the extension SHALL cap its width and height to that monitor's current display resolution and keep the resulting zone within the monitor.
+- **F009 — Persistent configuration:** WHEN a user changes zone settings, THEN the extension SHALL save the configuration and restore it after the extension or desktop restarts.
+- **F010 — Cinnamon compatibility:** WHEN implementing window management and shortcuts, THEN the extension SHALL prefer stable, documented Cinnamon/GJS APIs and avoid unnecessary version-specific or low-level dependencies.
 
 ## Design Constraints
 
-- Keep the implementation focused on these window-zoning features; avoid adding unrelated window-management functionality.
-- A centered zone SHALL use its configured pixel dimensions.
+- Keep the implementation focused on defining and snapping windows to the three centered zones.
+- Keep the configuration interface simple; a graphical zone editor is not required.
+- The exact list of predefined pixel sizes remains to be decided.

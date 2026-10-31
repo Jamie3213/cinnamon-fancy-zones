@@ -24,5 +24,7 @@ See [SPEC.md](./SPEC.md) for the required user-facing behavior. Keep it as the s
 
 - Keep the extension compatible with the project's declared Cinnamon/GJS support range; do not assume APIs are identical across versions.
 - Preserve desktop conventions for keyboard interaction, focus, and window placement.
-- Keep user-configurable layout data separate from window-management logic.
+- Keep user-configurable layout data separate from window-management logic. Use small, focused modules rather than monolithic scripts.
+- Prefer pure functions for zone sizing, centering, bounds clamping, and other logic that can be kept independent of Cinnamon APIs.
+- Make logic easy to test in isolation; keep interactions with Cinnamon and Muffin APIs at clear boundaries and cover them with focused tests where practical.
 - Add or update tests and documentation when introducing behavior. Use the repository's existing tooling; do not invent build or test commands before tooling is established.
