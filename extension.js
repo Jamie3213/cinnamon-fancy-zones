@@ -8,6 +8,7 @@ const ZoneUtils = Me.imports.zoneUtils;
 
 const SETTINGS_SCHEMA_ID = 'org.cinnamon.extensions.cinnamon-fancy-zones';
 const BINDING_NAMES = ['snap-zone-1', 'snap-zone-2', 'snap-zone-3'];
+const LOG_PREFIX = 'Cinnamon Fancy Zones: ';
 
 function getMonitorGeometryForWindow(window) {
     const monitorIndex = typeof window.get_monitor === 'function' ? window.get_monitor() : global.screen.get_current_monitor();
@@ -33,12 +34,15 @@ function snapWindowToZone(slotNumber) {
     const window = global.display.get_focus_window ? global.display.get_focus_window() : global.screen.get_active_window();
 
     if (!window) {
+        global.log(LOG_PREFIX + 'shortcut for zone ' + slotNumber + ' pressed, but there is no focused window.');
         return;
     }
 
     const monitorRect = getMonitorGeometryForWindow(window);
     const zoneRect = ZoneUtils.getCenteredZone(monitorRect, slotNumber);
 
+    global.log(LOG_PREFIX + 'snapping window to zone ' + slotNumber + ' at ' +
+        zoneRect.x + ',' + zoneRect.y + ' (' + zoneRect.width + 'x' + zoneRect.height + ').');
     window.move_resize_frame(true, zoneRect.x, zoneRect.y, zoneRect.width, zoneRect.height);
 }
 
@@ -48,6 +52,7 @@ function init() {
 
 const FancyZones = class {
     enable() {
+        global.log(LOG_PREFIX + 'enabling extension.');
         this._settings = new Gio.Settings({ schema_id: SETTINGS_SCHEMA_ID });
         this._keybindings = {};
 
@@ -56,7 +61,11 @@ const FancyZones = class {
             const actionMode = Cinnamon.ActionMode.NORMAL | Cinnamon.ActionMode.OVERVIEW;
 
             this._keybindings[bindingName] = () => {
-                snapWindowToZone.call(this, slotNumber);
+                try {
+                    snapWindowToZone.call(this, slotNumber);
+                } catch (error) {
+                    global.logError(error, LOG_PREFIX + 'failed to snap window to zone ' + slotNumber + '.');
+                }
             };
 
             const registered = Main.keybindingManager.addHotKeyArray(
@@ -68,12 +77,15 @@ const FancyZones = class {
             );
 
             if (!registered) {
-                global.logError('Cinnamon Fancy Zones could not register shortcut "' + bindingName + '".');
+                global.logError(LOG_PREFIX + 'could not register shortcut "' + bindingName + '".');
+            } else {
+                global.log(LOG_PREFIX + 'registered shortcut "' + bindingName + '".');
             }
         }
     }
 
     disable() {
+        global.log(LOG_PREFIX + 'disabling extension.');
         for (const bindingName of BINDING_NAMES) {
             if (Main.keybindingManager && typeof Main.keybindingManager.removeHotKey === 'function') {
                 Main.keybindingManager.removeHotKey(bindingName);
