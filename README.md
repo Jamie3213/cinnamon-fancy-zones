@@ -1,7 +1,7 @@
 # cinnamon-fancy-zones
 Ripoff of PowerToys Fancy Zones for Cinnamon-based desktops (e.g. Linux Mint)
 
-This repository contains a minimal Cinnamon extension implementing the behavior in [SPEC.md](./SPEC.md). It provides three fixed zone sizes—1920x1080, 1920x1080, and 800x600—and snaps the focused window to the corresponding centered zone using Ctrl + Alt + Super + 1/2/3.
+This repository contains a minimal Cinnamon extension implementing the behavior in [SPEC.md](./SPEC.md). It provides three fixed zone sizes—2240x1260, 1920x1080, and 800x600—and snaps the focused window to the corresponding centered zone using Ctrl + Alt + Super + 1/2/3.
 
 ## Dependencies
 

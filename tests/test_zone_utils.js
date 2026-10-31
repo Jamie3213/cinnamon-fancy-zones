@@ -25,7 +25,7 @@ function assertThrows(callback, expectedError, message) {
 
 function testFixedZoneDimensions() {
     const expected = [
-        [1, 1920, 1080],
+        [1, 2240, 1260],
         [2, 1920, 1080],
         [3, 800, 600]
     ];
