@@ -61,6 +61,15 @@ are registered or pressed, and when snapping fails.
 
   If `~/.xsession-errors` does not exist on your system, check the Looking Glass
   **Errors** tab instead.
+- If Cinnamon or the graphical session crashed and you had to reboot, check the
+  previous boot's system journal for relevant errors:
+
+  ```bash
+  journalctl -b -1 --no-pager | grep -Ei 'cinnamon|muffin|segfault|gjs'
+  ```
+
+  `-b -1` selects the previous boot. The journal may not contain previous-boot
+  logs if persistent journal storage is not enabled.
 - Confirm the extension is enabled in Cinnamon Settings → Extensions and check
   that each shortcut was registered. If a shortcut is missing or conflicts with
   another application, change it in Cinnamon's Keyboard → Shortcuts settings.
