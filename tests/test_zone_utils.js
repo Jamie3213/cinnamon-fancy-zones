@@ -26,7 +26,7 @@ function assertThrows(callback, expectedError, message) {
 function testFixedZoneDimensions() {
     const expected = [
         [1, 1920, 1080],
-        [2, 1280, 720],
+        [2, 1920, 1080],
         [3, 800, 600]
     ];
 
@@ -42,10 +42,10 @@ function testCenteredPlacementOnMonitorWithOffset() {
         { x: 1920, y: 0, width: 2560, height: 1440 },
         2
     );
-    assertEqual(zone.x, 2560, 'centered x coordinate');
-    assertEqual(zone.y, 360, 'centered y coordinate');
-    assertEqual(zone.width, 1280, 'centered zone width');
-    assertEqual(zone.height, 720, 'centered zone height');
+    assertEqual(zone.x, 2240, 'centered x coordinate');
+    assertEqual(zone.y, 180, 'centered y coordinate');
+    assertEqual(zone.width, 1920, 'centered zone width');
+    assertEqual(zone.height, 1080, 'centered zone height');
 }
 
 function testOversizedZoneIsClampedAndCentered() {
@@ -61,13 +61,13 @@ function testOversizedZoneIsClampedAndCentered() {
 
 function testZoneFitsWhenOnlyOneDimensionIsOversized() {
     const zone = ZoneUtils.getCenteredZone(
-        { x: 100, y: 50, width: 1000, height: 900 },
+        { x: 100, y: 50, width: 2000, height: 900 },
         2
     );
-    assertEqual(zone.x, 100, 'partially clamped x coordinate');
-    assertEqual(zone.y, 140, 'partially clamped y coordinate');
-    assertEqual(zone.width, 1000, 'partially clamped width');
-    assertEqual(zone.height, 720, 'partially clamped height');
+    assertEqual(zone.x, 140, 'partially clamped x coordinate');
+    assertEqual(zone.y, 50, 'partially clamped y coordinate');
+    assertEqual(zone.width, 1920, 'partially clamped width');
+    assertEqual(zone.height, 900, 'partially clamped height');
 }
 
 function testInvalidInputsAreRejected() {

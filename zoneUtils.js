@@ -1,6 +1,6 @@
 const ZONE_SIZES = {
     1: { width: 1920, height: 1080 },
-    2: { width: 1280, height: 720 },
+    2: { width: 1920, height: 1080 },
     3: { width: 800, height: 600 }
 };
 

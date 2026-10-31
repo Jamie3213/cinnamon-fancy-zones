@@ -7,7 +7,7 @@ Provide a simple, keyboard-driven way to place windows into a small set of cente
 ## Functional Requirements
 
 - **F001 — Fixed layout:** The extension SHALL use one fixed layout, without profiles or user-configurable zone sizes.
-- **F002 — Three fixed zone slots:** The extension SHALL provide three slots with fixed dimensions: slot 1 is 1920x1080 pixels, slot 2 is 1280x720 pixels, and slot 3 is 800x600 pixels.
+- **F002 — Three fixed zone slots:** The extension SHALL provide three slots with fixed dimensions: slot 1 is 1920x1080 pixels, slot 2 is 1920x1080 pixels, and slot 3 is 800x600 pixels.
 - **F003 — No zone editor:** The extension SHALL NOT require zone-size settings or a graphical zone-drawing editor.
 - **F004 — Overlapping zones:** The extension SHALL allow the fixed zones to overlap.
 - **F005 — Keyboard snapping:** WHEN the user presses Ctrl + Alt + Super + 1, 2, or 3, THEN the extension SHALL snap the active window to the corresponding fixed zone.
