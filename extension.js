@@ -1,6 +1,6 @@
 const Gio = imports.gi.Gio;
+const Cinnamon = imports.gi.Cinnamon;
 const Meta = imports.gi.Meta;
-const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -53,22 +53,30 @@ const FancyZones = class {
 
         for (let slotNumber = 1; slotNumber <= 3; slotNumber++) {
             const bindingName = BINDING_NAMES[slotNumber - 1];
-            const actionMode = Shell.ActionMode ?
-                (Shell.ActionMode.NORMAL | (Shell.ActionMode.OVERVIEW || 0)) :
-                0;
+            const actionMode = Cinnamon.ActionMode.NORMAL | Cinnamon.ActionMode.OVERVIEW;
 
             this._keybindings[bindingName] = () => {
                 snapWindowToZone.call(this, slotNumber);
             };
 
-            Main.wm.addKeybinding(bindingName, this._settings, Meta.KeyBindingFlags.NONE, actionMode, this._keybindings[bindingName]);
+            const registered = Main.keybindingManager.addHotKeyArray(
+                bindingName,
+                this._settings.get_strv(bindingName),
+                this._keybindings[bindingName],
+                Meta.KeyBindingFlags.NONE,
+                actionMode
+            );
+
+            if (!registered) {
+                global.logError('Cinnamon Fancy Zones could not register shortcut "' + bindingName + '".');
+            }
         }
     }
 
     disable() {
         for (const bindingName of BINDING_NAMES) {
-            if (Main.wm && typeof Main.wm.removeKeybinding === 'function') {
-                Main.wm.removeKeybinding(bindingName);
+            if (Main.keybindingManager && typeof Main.keybindingManager.removeHotKey === 'function') {
+                Main.keybindingManager.removeHotKey(bindingName);
             }
         }
 
