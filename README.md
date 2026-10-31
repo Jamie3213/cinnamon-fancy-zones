@@ -46,7 +46,7 @@ If you prefer to do it manually:
 4. Open the Cinnamon extensions settings UI and enable "Cinnamon Fancy Zones".
 5. Use Ctrl + Alt + Super + 1, 2, or 3 to snap the active window to its fixed zone.
 
-Snapping restores a maximized or full-screen window before moving and resizing it.
+Snapping restores a maximized or full-screen window before moving and resizing it. The extension recenters the resulting frame after resizing, so applications such as terminals that adjust requested dimensions to fit their content still end up centered.
 
 ### To develop the project
 

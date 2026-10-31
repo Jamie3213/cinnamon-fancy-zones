@@ -1,5 +1,6 @@
 const Gio = imports.gi.Gio;
 const Cinnamon = imports.gi.Cinnamon;
+const GLib = imports.gi.GLib;
 const Meta = imports.gi.Meta;
 const Main = imports.ui.main;
 
@@ -53,6 +54,31 @@ function snapWindowToZone(slotNumber) {
     }
 
     window.move_resize_frame(true, zoneRect.x, zoneRect.y, zoneRect.width, zoneRect.height);
+
+    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+        try {
+            const frameRect = window.get_frame_rect();
+            const position = ZoneUtils.getCenteredPosition(
+                monitorRect,
+                frameRect.width,
+                frameRect.height
+            );
+
+            if (frameRect.x !== position.x || frameRect.y !== position.y) {
+                window.move_resize_frame(
+                    true,
+                    position.x,
+                    position.y,
+                    frameRect.width,
+                    frameRect.height
+                );
+            }
+        } catch (error) {
+            global.logError(error, LOG_PREFIX + 'failed to center resized window.');
+        }
+
+        return GLib.SOURCE_REMOVE;
+    });
 }
 
 function init() {

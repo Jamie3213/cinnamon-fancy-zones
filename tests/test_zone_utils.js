@@ -70,6 +70,16 @@ function testZoneFitsWhenOnlyOneDimensionIsOversized() {
     assertEqual(zone.height, 900, 'partially clamped height');
 }
 
+function testActualWindowSizeIsCentered() {
+    const position = ZoneUtils.getCenteredPosition(
+        { x: 1920, y: 0, width: 2560, height: 1440 },
+        1900,
+        1040
+    );
+    assertEqual(position.x, 2250, 'actual window centered x coordinate');
+    assertEqual(position.y, 200, 'actual window centered y coordinate');
+}
+
 function testInvalidInputsAreRejected() {
     assertThrows(function () {
         ZoneUtils.getZoneDimensions(4);
@@ -77,11 +87,15 @@ function testInvalidInputsAreRejected() {
     assertThrows(function () {
         ZoneUtils.getCenteredZone({ x: 0, y: 0, width: 0, height: 800 }, 3);
     }, RangeError, 'invalid monitor size');
+    assertThrows(function () {
+        ZoneUtils.getCenteredPosition({ x: 0, y: 0, width: 800, height: 600 }, 0, 600);
+    }, RangeError, 'invalid window size');
 }
 
 testFixedZoneDimensions();
 testCenteredPlacementOnMonitorWithOffset();
 testOversizedZoneIsClampedAndCentered();
 testZoneFitsWhenOnlyOneDimensionIsOversized();
+testActualWindowSizeIsCentered();
 testInvalidInputsAreRejected();
 print('Passed ' + assertions + ' zone utility assertions.');
